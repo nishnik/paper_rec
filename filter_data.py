@@ -75,7 +75,7 @@ while (f):
     print(no_abstract, total_count)
     if line.strip():
         f.readline()  # consume blank line
-    records = title + '\t' + authors + '\t' + \
+    records = paperid + '\t' + title + '\t' + authors + '\t' + \
         year + '\t' + venue + '\t' + abstract + '\t'
     if len(refs) == 0:
         records += 'NONE' + '\n'
