@@ -43,7 +43,6 @@ def get_centroid(query):
 
 for line in reader:
     dict_data[line[0]] = line[1:]
-    dict_data[line[0]].append(get_centroid(line[5]))  # line[5] is abstract
 
 TITLE = 0
 AUTHORS = 1
@@ -51,11 +50,22 @@ YEAR = 2
 VENUE = 3
 ABSTRACT = 4
 REFS = 5
-CENTROID = 6
 
 # Get the Word Centroid Difference
 
-
-def wcd(id1, id2):
-    # returns the norm of the difference of the two vectors
-    return numpy.linalg.norm(dict_data[id1][CENTROID] - dict_data[id2][CENTROID])
+def get_knn_wcd(query_id, num):
+    dic={}
+    vec_A = get_centroid(dict_data[query_id][ABSTRACT])
+    for i in dict_data:
+        if (i == query_id):
+            continue
+        vec_B = get_centroid(dict_data[i][ABSTRACT])
+        val = numpy.linalg.norm(vec_A - vec_B)
+        if(len(dic)<num):
+            dic[i]=val
+        else:
+            m=max(dic,key=dic.get)
+            if(dic[m]>val):
+                del (dic[m])
+                dic[i]=val
+    return list(dic.keys())
