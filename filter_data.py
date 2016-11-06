@@ -76,12 +76,5 @@ while (f):
     if line.strip():
         f.readline()  # consume blank line
     records = paperid + '\t' + title + '\t' + authors + '\t' + \
-        year + '\t' + venue + '\t' + abstract + '\t'
-    if len(refs) == 0:
-        records += 'NONE' + '\n'
-    else:
-        records += refs[0]
-        for a in refs[1:]:
-            records += ', ' + a
-        records += '\n'
+        year + '\t' + venue + '\t' + abstract + '\t' + str(refs) + '\n'
     f1.write(records.encode("utf-8"))
